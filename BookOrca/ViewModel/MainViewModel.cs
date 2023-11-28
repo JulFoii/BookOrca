@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using BookOrca.Core;
-using BookOrca.Models;
+﻿using BookOrca.Core;
 
 namespace BookOrca.ViewModel;
 
