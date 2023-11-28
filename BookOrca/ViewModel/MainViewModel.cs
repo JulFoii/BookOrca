@@ -1,23 +1,30 @@
-﻿using BookOrca.Core;
+﻿using System.Collections.ObjectModel;
+using BookOrca.Core;
 using BookOrca.Models;
-using System;
-using System.Collections.ObjectModel;
-using System.IO;
 
 namespace BookOrca.ViewModel;
 
 public class MainViewModel : ViewModelBase
 {
-	public ObservableCollection<BookViewModel> BookList { get; set; } = new();
+    private static MainViewModel? instance;
 
-	public MainViewModel()
-	{
-		var book = new Book()
-		{
-			CoverPath = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "books/metadata/images/Best Loser Wins.pdf.png"), UriKind.Absolute)
-		};
+    public MainViewModel()
+    {
+        var book = new Book
+        {
+            CoverPath = "books/metadata/images/Best Loser Wins.pdf.png"
+        };
 
-		BookList.Add(new BookViewModel(book));
+        var book2 = new Book
+        {
+            CoverPath = "books/metadata/images/Best Loser Wins.pdf.png"
+        };
 
-	}
+        BookList.Add(new BookViewModel(book));
+        BookList.Add(new BookViewModel(book2));
+    }
+
+    public static MainViewModel Instance => instance ??= new MainViewModel();
+
+    public ObservableCollection<BookViewModel> BookList { get; set; } = new();
 }

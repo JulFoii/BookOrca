@@ -8,7 +8,7 @@ public interface IBookDataAccess
 
     public Book LoadBook(string fileName);
 
-    public void DeleteBook(string fileName);
+    public void DeleteBook(Book book);
     
     public IEnumerable<string> GetBookPaths();
 

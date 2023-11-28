@@ -22,7 +22,7 @@ public partial class App : Application
         
         Current.MainWindow = new MainWindow
         {
-            DataContext = new MainViewModel()
+            DataContext = MainViewModel.Instance
         };
 
         Current.MainWindow.Show();

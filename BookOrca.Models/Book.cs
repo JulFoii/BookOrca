@@ -6,7 +6,7 @@ public class Book
 
     public string Autor { get; set; } = string.Empty;
 
-    public Uri? CoverPath { get; set; }
+    public string CoverPath { get; set; } = string.Empty;
 
     public string CoverUrl { get; set; } = string.Empty;
     
