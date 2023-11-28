@@ -1,57 +1,57 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BookOrca.Core;
 using BookOrca.Models;
 
-namespace BookOrca.ViewModel
+namespace BookOrca.ViewModel;
+
+public class BookViewModel : ViewModelBase
 {
+    public BookViewModel(Book book)
+    {
+        Book = book;
+        CoverSource =
+            new BitmapImage(new Uri(
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "books/metadata/images/Best Loser Wins.pdf.png"),
+                UriKind.Absolute));
 
-	public class BookViewModel : ViewModelBase
-	{
-		#region Properties
+        OpenFolerCommand = new RelayCommand(OpenFolder);
+        DeleteBookCommand = new RelayCommand(DeleteBook);
+        EditBookCommand = new RelayCommand(EditBook);
+    }
 
-		public ImageSource CoverSource { get; set; }
-		public Book Book { get; set; }
+    private void DeleteBook()
+    {
+        throw new NotImplementedException();
+    }
 
-		#endregion
-		#region Commands
+    private void OpenFolder(object? parameter)
+    {
+        if (parameter is Book buch) Process.Start("explorer.exe", buch.Path);
+    }
 
-		public RelayCommand OpenFolerCommand { get; }
-    
-		public RelayCommand DeleteBookCommand { get; }
-    
-		public RelayCommand EditBookCommand { get; }
+    private void EditBook()
+    {
+        throw new NotImplementedException();
+    }
 
-		#endregion
-    
-    
-		public BookViewModel(Book book)
-		{
-			this.Book = book;
-			this.CoverSource = new BitmapImage(this.Book.CoverPath!);
-			Debug.WriteLine(this.Book.CoverPath.AbsolutePath);
+    #region Properties
 
-			OpenFolerCommand = new RelayCommand(OpenFolder);
-			DeleteBookCommand = new RelayCommand(DeleteBook);
-			EditBookCommand = new RelayCommand(EditBook);
+    public ImageSource CoverSource { get; set; }
+    public Book Book { get; set; }
 
-			
-		}
-    
-		private void DeleteBook()
-		{
-			throw new System.NotImplementedException();
-		}
+    #endregion
 
-		private void OpenFolder(object? parameter)
-		{
-			if (parameter is Book buch) Process.Start("explorer.exe", buch.Path);
-		}
-    
-		private void EditBook()
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+    #region Commands
+
+    public RelayCommand OpenFolerCommand { get; }
+
+    public RelayCommand DeleteBookCommand { get; }
+
+    public RelayCommand EditBookCommand { get; }
+
+    #endregion
 }

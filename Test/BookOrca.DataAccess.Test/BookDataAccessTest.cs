@@ -26,13 +26,10 @@ public class BookDataAccessTest
             // Ignore if not exists
         }
     }
-    
-    [Test]
-    public void TestSaveBook()
-    {
-        var bookDataAcces = new BookDataAccess();
 
-        var book = new Book()
+    private Book CreateBook()
+    {
+        return new Book
         {
             Autor = "Test 123",
             Isbn = "ISBN-123-123-123",
@@ -40,9 +37,34 @@ public class BookDataAccessTest
             Titel = "The great tester",
             CoverUrl = "https://covers.openlibrary.org/b/id/13264887-M.jpg"
         };
+    }
+    
+    [Test]
+    public void TestSaveBook()
+    {
+        var bookDataAcces = new BookDataAccess();
+
+        var book = CreateBook();
         
         bookDataAcces.SaveBook(book);
         
-        Assert.That(File.Exists("books/metadata/test book.pdf.json"));
+        Assert.That(File.Exists("books/metadata/data/test book.pdf.json"));
+    }
+
+    [Test]
+    public void TestLoadBook()
+    {
+        var bookDataAcces = new BookDataAccess();
+
+        var book = CreateBook();
+        
+        bookDataAcces.SaveBook(book);
+
+        var loadedBook = bookDataAcces.LoadBook(book.Path);
+
+        foreach (var property in book.GetType().GetProperties())
+        {
+            Assert.That(property.GetValue(loadedBook), Is.EqualTo(property.GetValue(book)));
+        }
     }
 }
