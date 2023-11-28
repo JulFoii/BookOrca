@@ -18,6 +18,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/BookStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/Listviews.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -40,7 +41,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Path=BookList}">
+            <ListView ItemsSource="{Binding Path=BookList}" ItemContainerStyle="{StaticResource ListViewContainerStyle}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
@@ -53,13 +54,7 @@
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Margin" Value="20 0 20 0"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
+                
             </ListView>
         </Grid>
     </Grid>
