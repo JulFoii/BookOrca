@@ -8,7 +8,7 @@ internal static class JsonDataAccess
     {
         var jsonData = JsonConvert.SerializeObject(obj);
 
-        File.WriteAllText(jsonData, path);
+        File.WriteAllText(path, jsonData);
     }
 
     internal static T LoadObj<T>(string path)
