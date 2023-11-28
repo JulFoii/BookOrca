@@ -67,4 +67,16 @@ public class BookDataAccessTest
             Assert.That(property.GetValue(loadedBook), Is.EqualTo(property.GetValue(book)));
         }
     }
+
+    [Test]
+    public async Task TestDownloadImage()
+    {
+        var bookDataAcces = new BookDataAccess();
+
+        var book = CreateBook();
+
+        await bookDataAcces.DownloadBookCover(book);
+        
+        Assert.That(File.Exists(book.CoverPath));
+    }
 }

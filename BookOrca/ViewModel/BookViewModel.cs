@@ -20,24 +20,18 @@ public class BookViewModel : ViewModelBase
 
         OpenFolerCommand = new RelayCommand(OpenFolder);
         DeleteBookCommand = new RelayCommand(DeleteBook);
-        EditBookCommand = new RelayCommand(EditBook);
     }
 
     private void DeleteBook()
     {
-        
+        MainViewModel.Instance.BookList.Remove(this);
     }
 
     private void OpenFolder(object? parameter)
     {
         if (parameter is Book buch) Process.Start("explorer.exe", buch.Path);
     }
-
-    private void EditBook()
-    {
-        
-    }
-
+    
     #region Properties
 
     public ImageSource CoverSource { get; set; }
@@ -46,12 +40,8 @@ public class BookViewModel : ViewModelBase
     #endregion
 
     #region Commands
-
     public RelayCommand OpenFolerCommand { get; }
-
     public RelayCommand DeleteBookCommand { get; }
-
-    public RelayCommand EditBookCommand { get; }
 
     #endregion
 }
