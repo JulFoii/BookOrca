@@ -15,6 +15,9 @@ public partial class App : Application
         if (!Directory.Exists("books"))
         {
             Directory.CreateDirectory("books");
+            Directory.CreateDirectory("books/metadata");
+            Directory.CreateDirectory("books/metadata/images");
+            Directory.CreateDirectory("books/metadata/data");
         }
         
         Current.MainWindow = new MainWindow

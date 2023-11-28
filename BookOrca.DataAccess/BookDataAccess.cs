@@ -14,6 +14,13 @@ public class BookDataAccess : IBookDataAccess
         JsonDataAccess.SaveObj(book, $"{DataPath}/{Path.GetFileName(book.Path)}.json");
     }
 
+    public void DeleteBook(string fileName)
+    {
+        File.Delete(fileName);
+        File.Delete($"{DataPath}/{fileName}.json");
+        File.Delete($"{ImagePath}/{fileName}.png");
+    }
+
     public IEnumerable<string> GetBookPaths()
     {
         return Directory.GetFiles(BooksPath);
