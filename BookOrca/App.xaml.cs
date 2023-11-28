@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using BookOrca.View;
 using BookOrca.ViewModel;
 
@@ -11,6 +12,11 @@ public partial class App : Application
 {
     protected override void OnStartup(StartupEventArgs e)
     {
+        if (!Directory.Exists("books"))
+        {
+            Directory.CreateDirectory("books");
+        }
+        
         Current.MainWindow = new MainWindow
         {
             DataContext = new MainViewModel()
