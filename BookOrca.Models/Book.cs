@@ -12,7 +12,7 @@ public class Book
 
     public string Isbn { get; set; } = string.Empty;
     
-    private Book()
+    public Book()
     {
         
     }
