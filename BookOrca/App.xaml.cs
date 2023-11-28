@@ -23,7 +23,7 @@ public partial class App : Application
         };
 
         Current.MainWindow.Show();
-
+        
         base.OnStartup(e);
     }
 }

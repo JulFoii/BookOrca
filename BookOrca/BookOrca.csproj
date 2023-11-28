@@ -15,12 +15,19 @@
         <PackageReference Include="MahApps.Metro" Version="2.4.10"/>
         <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0"/>
         <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All"/>
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\BookOrca.ApiAccess\BookOrca.ApiAccess.csproj"/>
         <ProjectReference Include="..\BookOrca.DataAccess\BookOrca.DataAccess.csproj"/>
         <ProjectReference Include="..\BookOrca.Models\BookOrca.Models.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="App.config">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
