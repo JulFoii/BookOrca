@@ -17,7 +17,13 @@ public class MainViewModel : ViewModelBase
 			CoverPath = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "books/metadata/images/Best Loser Wins.pdf.png"), UriKind.Absolute)
 		};
 
+		var book2 = new Book()
+		{
+			CoverPath = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "books/metadata/images/Best Loser Wins.pdf.png"), UriKind.Absolute)
+		};
+
 		BookList.Add(new BookViewModel(book));
+		BookList.Add(new BookViewModel(book2));
 
 	}
 }
