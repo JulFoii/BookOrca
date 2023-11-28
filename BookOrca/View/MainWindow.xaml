@@ -41,7 +41,8 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Path=BookList}" ItemContainerStyle="{StaticResource ListViewContainerStyle}">
+            <ListView ItemsSource="{Binding Path=BookList}" ItemContainerStyle="{StaticResource ListViewContainerStyle}" HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
@@ -50,7 +51,14 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="Black" Background="Transparent" BorderThickness="0" Margin="0 0 0 0">
-                            <Image Source="{Binding Path=CoverSource}" Width="100" Height="150" Stretch="UniformToFill" Style="{StaticResource BookImageStyle}"/>
+                            <Image Source="{Binding Path=CoverSource}" 
+                                   Width="100" Height="150" 
+                                   Stretch="UniformToFill" Style="{StaticResource BookImageStyle}"
+                                   Cursor="Hand">
+                                <Image.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding Path=DataContext.BookClickedCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
+                                </Image.InputBindings>
+                            </Image>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
