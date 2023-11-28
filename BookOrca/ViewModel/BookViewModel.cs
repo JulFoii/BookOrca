@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BookOrca.Core;
