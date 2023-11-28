@@ -25,7 +25,7 @@ public class BookViewModel : ViewModelBase
 
     private void DeleteBook()
     {
-        throw new NotImplementedException();
+        
     }
 
     private void OpenFolder(object? parameter)
@@ -35,7 +35,7 @@ public class BookViewModel : ViewModelBase
 
     private void EditBook()
     {
-        throw new NotImplementedException();
+        
     }
 
     #region Properties
