@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using BookOrca.Core;
 using BookOrca.Models;
 
@@ -10,12 +13,10 @@ namespace BookOrca.ViewModel
 	{
 		#region Properties
 
-		public ObservableCollection<Book> Bücherliste { get; set; }
-		public Book Buch { get; set; }
+		public ImageSource CoverSource { get; set; }
+		public Book Book { get; set; }
 
 		#endregion
-    
-    
 		#region Commands
 
 		public RelayCommand OpenFolerCommand { get; }
@@ -27,15 +28,17 @@ namespace BookOrca.ViewModel
 		#endregion
     
     
-		public BookViewModel()
+		public BookViewModel(Book book)
 		{
+			this.Book = book;
+			this.CoverSource = new BitmapImage(this.Book.CoverPath!);
+			Debug.WriteLine(this.Book.CoverPath.AbsolutePath);
+
 			OpenFolerCommand = new RelayCommand(OpenFolder);
 			DeleteBookCommand = new RelayCommand(DeleteBook);
 			EditBookCommand = new RelayCommand(EditBook);
 
-			Bücherliste = new ObservableCollection<Book>();
-			Buch = new Book();
-
+			
 		}
     
 		private void DeleteBook()
