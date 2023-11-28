@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BookOrca.Models;
+using Newtonsoft.Json;
 
 namespace BookOrca.ApiAccess;
 
