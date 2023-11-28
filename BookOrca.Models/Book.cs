@@ -6,8 +6,10 @@ public class Book
 
     public string Autor { get; set; } = string.Empty;
 
-    public string CoverPath { get; set; } = string.Empty;
+    public string? CoverPath { get; set; }
 
+    public string CoverUrl { get; set; } = string.Empty;
+    
     public string Path { get; set; } = string.Empty;
 
     public string Isbn { get; set; } = string.Empty;
