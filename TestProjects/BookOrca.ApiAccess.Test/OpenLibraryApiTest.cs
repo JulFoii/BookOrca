@@ -14,13 +14,16 @@ public class OpenLibraryServiceTests
         var validBookTitle = "Harry Potter"; // Gültiger Buchtitel
 
         // Act
-        var bookInfo = await openLibraryService.GetBookInformation(validBookTitle);
+        var bookResult = await openLibraryService.GetBookInformation(validBookTitle);
+        
+        Assert.That(bookResult.IsSuccessful);
+
+        var bookInfo = bookResult.Book!;
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(bookInfo, Is.Not.Null);
-            Assert.That(bookInfo!.Title, Is.Not.Null);
+            Assert.That(bookInfo.Title, Is.Not.Null);
             Assert.That(bookInfo.Author, Is.Not.Null);
             Assert.That(bookInfo.Isbn, Is.Not.Null);
             Assert.That(bookInfo.CoverUrl, Is.Not.Null);

@@ -49,6 +49,9 @@ public class MainViewModel : ViewModelBase
                     var loadedBook = bookDataAccess.LoadBook(fileName);
 
                     BookList.Add(loadedBook);
+                    
+                    Debug.WriteLine($"Loaded book {bookPath}");
+                    continue;
                 }
                 catch (Exception e)
                 {
@@ -59,13 +62,26 @@ public class MainViewModel : ViewModelBase
 
             Task.Run(async () =>
             {
-                var book = await IBookApi.Instance.GetBookInformation(Path.GetFileNameWithoutExtension(bookPath));
+                var bookQueryName = Path.GetFileNameWithoutExtension(bookPath);
                 
-                if (book == null)
+                var bookResult = await IBookApi.Instance.GetBookInformation(bookQueryName);
+                
+                if (!bookResult.IsSuccessful)
                 {
-                    Debug.WriteLine($"API couldn't find a matching book for {bookPath}");
+                    Debug.WriteLine("-----");
+                    Debug.WriteLine($"API couldn't find a matching book for {bookQueryName}");
+                    
+                    if (string.IsNullOrEmpty(bookResult.ErrorMessage))
+                    {
+                        Debug.WriteLine("No error Message.");
+                    }
+                    
+                    Debug.Write(bookResult.ErrorMessage!);
+                    Debug.WriteLine("-----");
                     return;
                 }
+
+                var book = bookResult.Book!;
                 
                 Debug.WriteLine($"API found a matching book for {bookPath}: {book.Title}");
 
