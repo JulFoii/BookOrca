@@ -9,9 +9,12 @@ namespace BookOrca.View;
 /// </summary>
 public partial class MainWindow : MetroWindow
 {
+	private MainViewModel viewModel;
+
     public MainWindow()
     {
         InitializeComponent();
+        viewModel = new MainViewModel();
     }
 
     private void OpenSettings(object sender, RoutedEventArgs e)
@@ -21,4 +24,15 @@ public partial class MainWindow : MetroWindow
             DataContext = new SettingsViewModel()
         }.ShowDialog();
     }
+
+    private void UIElement_OnDropFile(object sender, DragEventArgs e)
+    {
+	    if (e.Data.GetDataPresent(DataFormats.FileDrop))
+	    {
+		    var droppedFile = e.Data.GetData(DataFormats.FileDrop);
+
+		    // Hier rufst du das Command im MainViewModel auf
+		    viewModel.DropFileCommand.Execute(droppedFile);
+	    }
+	}
 }

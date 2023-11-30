@@ -41,8 +41,12 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Path=BookList}" ItemContainerStyle="{StaticResource ListViewContainerStyle}" HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Stretch">
+            <ListView ItemsSource="{Binding Path=BookList}" 
+                      ItemContainerStyle="{StaticResource ListViewContainerStyle}" 
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      AllowDrop="True"
+                      Drop="UIElement_OnDropFile">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
