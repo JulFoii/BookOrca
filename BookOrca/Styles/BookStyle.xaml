@@ -4,7 +4,7 @@
     <Style x:Key="BookImageStyle" TargetType="Image">
         <Setter Property="RenderTransform">
             <Setter.Value>
-                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
             </Setter.Value>
         </Setter>
         <Style.Triggers>
@@ -14,10 +14,10 @@
                         <Storyboard>
                             <DoubleAnimation
                                 Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                To="1.1" Duration="0:0:0.2"/>
+                                To="1.1" Duration="0:0:0.2" />
                             <DoubleAnimation
                                 Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                To="1.1" Duration="0:0:0.2"/>
+                                To="1.1" Duration="0:0:0.2" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger.Actions>
@@ -28,10 +28,10 @@
                         <Storyboard>
                             <DoubleAnimation
                                 Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                To="1" Duration="0:0:0.2"/>
+                                To="1" Duration="0:0:0.2" />
                             <DoubleAnimation
                                 Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                To="1" Duration="0:0:0.2"/>
+                                To="1" Duration="0:0:0.2" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger.Actions>

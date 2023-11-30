@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\BookOrca.DataAccess\BookOrca.DataAccess.csproj" />
+        <ProjectReference Include="..\..\BookOrca.DataAccess\BookOrca.DataAccess.csproj"/>
     </ItemGroup>
 
 </Project>

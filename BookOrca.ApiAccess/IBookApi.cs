@@ -1,6 +1,4 @@
-﻿using BookOrca.Models;
-
-namespace BookOrca.ApiAccess;
+﻿namespace BookOrca.ApiAccess;
 
 public interface IBookApi
 {

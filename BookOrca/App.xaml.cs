@@ -22,22 +22,22 @@ public partial class App : Application
             Directory.CreateDirectory(Paths.ImagesPath);
             Directory.CreateDirectory(Paths.MetadataPath);
         }
-        
+
         // Load theme
         var theme = ConfigurationManager.AppSettings["Theme"] ?? "Light";
         var color = ConfigurationManager.AppSettings["Color"] ?? "Blue";
 
         ThemeManager.Current.ChangeTheme(this, $"{theme}.{color}");
-        
+
         Current.MainWindow = new MainWindow
         {
             DataContext = MainViewModel.Instance
         };
 
         Current.MainWindow.Show();
-        
+
         MainViewModel.Instance.UpdateBooksCommand.Execute();
-        
+
         base.OnStartup(e);
     }
 }

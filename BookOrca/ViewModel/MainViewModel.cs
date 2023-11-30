@@ -116,7 +116,7 @@ public class MainViewModel : ViewModelBase
                             BackUpBookList.Add(emptyBook);
                             BookList.Add(emptyBook);
                         });
-                        
+
                         return;
                     }
 

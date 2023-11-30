@@ -14,7 +14,7 @@ public partial class BookView : UserControl
     private void BookContextMenuDelete(object sender, RoutedEventArgs e)
     {
         var bookViewModel = (BookViewModel)DataContext;
-        
+
         bookViewModel.DeleteBookCommand.Execute();
     }
 }

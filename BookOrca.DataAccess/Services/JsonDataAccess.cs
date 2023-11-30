@@ -1,5 +1,4 @@
-﻿using BookOrca.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace BookOrca.DataAccess.Services;
 
@@ -7,7 +6,7 @@ internal static class JsonDataAccess
 {
     internal static void SaveObj(object obj, string path)
     {
-        var jsonData = JsonConvert.SerializeObject(obj, new JsonSerializerSettings()
+        var jsonData = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
         {
             Formatting = Formatting.Indented
         });
@@ -18,7 +17,7 @@ internal static class JsonDataAccess
     internal static T LoadObj<T>(string path)
     {
         var jsonData = File.ReadAllText(path);
-        
+
         return JsonConvert.DeserializeObject<T>(jsonData)!;
     }
 }

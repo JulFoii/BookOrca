@@ -5,7 +5,7 @@ namespace BookOrca.ApiAccess.Test;
 [TestFixture]
 public class OpenLibraryServiceTests
 {
-    private readonly OpenLibraryService openLibraryService = new OpenLibraryService();
+    private readonly OpenLibraryService openLibraryService = new();
 
     [Test]
     public async Task GetBookInformation_ValidTitle_ReturnsBookInfo()
@@ -15,7 +15,7 @@ public class OpenLibraryServiceTests
 
         // Act
         var bookResult = await openLibraryService.GetBookInformation(validBookTitle);
-        
+
         Assert.That(bookResult.IsSuccessful);
 
         var bookInfo = bookResult.Book!;

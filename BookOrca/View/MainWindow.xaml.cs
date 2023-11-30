@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using BookOrca.ViewModel;
-using ControlzEx.Theming;
 using MahApps.Metro.Controls;
 
 namespace BookOrca.View;
@@ -13,7 +10,7 @@ namespace BookOrca.View;
 /// </summary>
 public partial class MainWindow : MetroWindow
 {
-	private readonly MainViewModel viewModel;
+    private readonly MainViewModel viewModel;
 
     public MainWindow()
     {
@@ -31,18 +28,17 @@ public partial class MainWindow : MetroWindow
 
     private void UIElement_OnDropFile(object sender, DragEventArgs e)
     {
-	    if (e.Data.GetDataPresent(DataFormats.FileDrop))
-	    {
-		    var droppedFile = e.Data.GetData(DataFormats.FileDrop);
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            var droppedFile = e.Data.GetData(DataFormats.FileDrop);
 
-		    // Hier rufst du das Command im MainViewModel auf
-		    viewModel.DropFileCommand.Execute(droppedFile);
-	    }
-
-	}
+            // Hier rufst du das Command im MainViewModel auf
+            viewModel.DropFileCommand.Execute(droppedFile);
+        }
+    }
 
     private void BookContextMenuDelete(object sender, RoutedEventArgs e)
     {
-	    Debug.WriteLine(sender.GetType());
+        Debug.WriteLine(sender.GetType());
     }
 }

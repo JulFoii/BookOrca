@@ -4,10 +4,6 @@ namespace BookOrca.ApiAccess;
 
 public record BookApiResult
 {
-    public bool IsSuccessful { get; }
-    public Book? Book { get; }
-    public string? ErrorMessage { get; }
-    
     public BookApiResult(Book book)
     {
         Book = book;
@@ -19,4 +15,8 @@ public record BookApiResult
         ErrorMessage = errorMessage;
         IsSuccessful = false;
     }
+
+    public bool IsSuccessful { get; }
+    public Book? Book { get; }
+    public string? ErrorMessage { get; }
 }

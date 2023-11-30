@@ -14,7 +14,7 @@ public class BookDataAccess : IBookDataAccess
     public void DeleteBook(Book book)
     {
         var fileName = Path.GetFileName(book.FileName);
-        
+
         File.Delete(Paths.GetBookPath(fileName));
         File.Delete(Paths.GetImagePath(fileName));
         File.Delete(Paths.GetMetadataPath(fileName));
@@ -34,16 +34,13 @@ public class BookDataAccess : IBookDataAccess
     {
         var files = Directory.GetFiles(Paths.MetadataPath);
 
-        foreach (var file in files)
-        {
-            yield return JsonDataAccess.LoadObj<Book>(file);
-        }
+        foreach (var file in files) yield return JsonDataAccess.LoadObj<Book>(file);
     }
 
     public async Task DownloadBookCover(Book book)
     {
         var coverPath = Paths.GetImagePath(Path.GetFileName(book.FileName));
-        
+
         await ImageDataAccess.DownloadImage(book.CoverUrl, coverPath);
     }
 }

@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\BookOrca.Models\BookOrca.Models.csproj"/>
-        <ProjectReference Include="..\BookOrca.Resources\BookOrca.Resources.csproj" />
+        <ProjectReference Include="..\BookOrca.Resources\BookOrca.Resources.csproj"/>
     </ItemGroup>
 
 </Project>
