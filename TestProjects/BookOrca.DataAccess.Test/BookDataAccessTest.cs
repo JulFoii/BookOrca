@@ -31,10 +31,10 @@ public class BookDataAccessTest
     {
         return new Book
         {
-            Autor = "Test 123",
+            Author = "Test 123",
             Isbn = "ISBN-123-123-123",
             FileName = $"{name}.pdf",
-            Titel = "The great tester",
+            Title = "The great tester",
             CoverUrl = "https://covers.openlibrary.org/b/id/13264887-M.jpg"
         };
     }
