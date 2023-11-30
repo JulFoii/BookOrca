@@ -30,7 +30,7 @@ public class OpenLibraryService : IBookApi
                 return new Book
                 {
                     Title = title,
-                    Autor = authors[0],
+                    Author = authors[0],
                     Isbn = isbn,
                     CoverUrl = coverUrl
                 };
