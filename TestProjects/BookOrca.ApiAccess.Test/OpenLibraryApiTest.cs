@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using BookOrca.Models;
+using NUnit.Framework;
 
 namespace BookOrca.ApiAccess.Test
 {
@@ -21,14 +22,14 @@ namespace BookOrca.ApiAccess.Test
             string validBookTitle = "Harry Potter"; // Gültiger Buchtitel
 
             // Act
-            BookInformation bookInfo = await _openLibraryService.GetBookInformation(validBookTitle);
+            Book bookInfo = await _openLibraryService.GetBookInformation(validBookTitle);
 
             // Assert
-            Console.WriteLine(bookInfo.Title + bookInfo.Authors + bookInfo.ISBN + bookInfo.CoverUrl);
+            Console.WriteLine(bookInfo.Title + bookInfo.Autor + bookInfo.Isbn + bookInfo.CoverUrl);
             Assert.IsNotNull(bookInfo);
             Assert.IsNotNull(bookInfo.Title);
-            Assert.IsNotNull(bookInfo.Authors[0]);
-            Assert.IsNotNull(bookInfo.ISBN);
+            Assert.IsNotNull(bookInfo.Autor[0]);
+            Assert.IsNotNull(bookInfo.Isbn);
             Assert.IsNotNull(bookInfo.CoverUrl);
         }
     }

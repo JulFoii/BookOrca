@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using BookOrca.Models;
+using Newtonsoft.Json;
 
 namespace BookOrca.ApiAccess;
 
 public class OpenLibraryService : IBookApi
 {
-    public async Task<BookInformation> GetBookInformation(string bookTitle)
+    public async Task<Book> GetBookInformation(string bookTitle)
     {
         string apiUrl = $"https://openlibrary.org/search.json?title={Uri.EscapeDataString(bookTitle)}";
 
@@ -26,11 +27,11 @@ public class OpenLibraryService : IBookApi
                 int coverId = (int)book.cover_i;
                 string coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
 
-                return new BookInformation
+                return new Book
                 {
                     Title = title,
-                    Authors = authors,
-                    ISBN = isbn,
+                    Autor = authors[0],
+                    Isbn = isbn,
                     CoverUrl = coverUrl
                 };
             }
