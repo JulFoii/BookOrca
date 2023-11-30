@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using BookOrca.ApiAccess;
 using BookOrca.Core;
 using BookOrca.Core.Dispatch;
@@ -135,8 +135,34 @@ public class MainViewModel : ViewModelBase
     #region Properties
 
     public ObservableCollection<BookViewModel> BookList { get; set; } = new();
+    
+    public ObservableCollection<BookViewModel> BackUpBookList { get; set; } = new();
+    
+    
 
-    public string BookFilterName { get; set; } = string.Empty;
+    private string bookfilter;
+    public string BookFilter
+    {
+        get => bookfilter;
+        set
+        {
+            if (value == string.Empty)
+            {
+                BookList = BackUpBookList;
+                bookfilter = value;
+            }
+            bookfilter = value;
+            var newBookList = BackUpBookList.Where(x => x.Book.Title.Contains(value) 
+                                                        || x.Book.FileName.Contains(value)
+                                                        || x.Book.Author.Contains(value)
+                                                        || x.Book.Isbn.Contains(value));
+            BookList.Clear();
+            foreach (var newBook in newBookList)
+            {
+                BookList.Add(newBook);
+            }
+        }
+    }
 
     #endregion
 

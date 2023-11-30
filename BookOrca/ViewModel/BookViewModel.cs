@@ -70,7 +70,7 @@ public class BookViewModel : ViewModelBase
 
     public static implicit operator BookViewModel(Book book)
     {
-        var bookViewModel = MainViewModel.Instance.BookList
+        var bookViewModel = MainViewModel.Instance.BackUpBookList
                                 .FirstOrDefault(x => x.Book == book)
                             ?? new BookViewModel(book);
 

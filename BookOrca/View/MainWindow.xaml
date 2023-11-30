@@ -36,33 +36,17 @@
                 <iconPacks:Material Kind="Update"/>
             </Button>
 
-            <Border Background="{DynamicResource Background}" 
-                    BorderThickness="1"
-                    BorderBrush="Gray"
-                    Width="150"
-                    Height="40"
-                    Margin="150 0 0 0"
+            
+                
+                <TextBox
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    CornerRadius="10">
-                <Grid>
-                    <TextBlock VerticalAlignment="Center"
-                               FontSize="20"
-                               Text="Titel"
-                               Foreground="LightGray"
-                               Margin="10 0"
-                               Visibility="{Binding Path=BookFilterName, 
-                                            Converter={StaticResource EmptyToVis}}"/>
-                    <TextBox VerticalAlignment="Center"
-                             FontFamily="{DynamicResource CustomFont}"
                              FontSize="20"
-                             Text="{Binding Path=BookFilterName, 
+                             Width="200"
+                             Text="{Binding Path=BookFilter,
                                     UpdateSourceTrigger=PropertyChanged}"
-                             BorderThickness="0"
+                             BorderThickness="1"
                              Background="Transparent"
-                             Margin="4 0" />
-                </Grid>
-            </Border>
+                             Margin="4 0"/>
             
         </StackPanel>
 
