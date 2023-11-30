@@ -20,16 +20,9 @@ public partial class App : Application
         var foldersToMake = new[] { Paths.BookPath, Paths.MetadataPath, Paths.ImagesPath };
 
         foreach (var folderToMake in foldersToMake)
-        {
             if (!Directory.Exists(folderToMake))
-            {
                 Directory.CreateDirectory(folderToMake);
-            }
-        }
-        
-        
-        
-        
+
 
         // Load theme
         var theme = ConfigurationManager.AppSettings["Theme"] ?? "Light";

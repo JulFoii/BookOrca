@@ -26,12 +26,9 @@ public class OpenLibraryService : IBookApi
                 string isbn = book.isbn != null && book.isbn.Count > 0 ? book.isbn[0] : "ISBN nicht verfügbar";
                 var coverId = (int?)book.cover_i;
 
-                string coverUrl = string.Empty;
-                
-                if (coverId != null)
-                {
-                    coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
-                }
+                var coverUrl = string.Empty;
+
+                if (coverId != null) coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
 
                 return new BookApiResult(new Book
                 {

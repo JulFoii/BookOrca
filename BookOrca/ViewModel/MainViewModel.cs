@@ -72,7 +72,6 @@ public class MainViewModel : ViewModelBase
             var metadataPath = Paths.GetMetadataPath(fileName);
 
             if (File.Exists(metadataPath))
-            {
                 try
                 {
                     var loadedBook = bookDataAccess.LoadBook(fileName);
@@ -88,7 +87,6 @@ public class MainViewModel : ViewModelBase
                     File.Delete(Paths.GetImagePath(fileName));
                     Debug.WriteLine(e);
                 }
-            }
 
             Task.Run(async () =>
             {
@@ -145,9 +143,10 @@ public class MainViewModel : ViewModelBase
                             Debug.WriteLine(e);
                             throw;
                         }
+
                         Debug.WriteLine($"Finished download of {book.CoverUrl}");
                     }
-                        
+
 
                     bookDataAccess.SaveBook(book);
 
