@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using BookOrca.ApiAccess;
 using BookOrca.Core;
 using BookOrca.Core.Dispatch;
@@ -24,101 +25,108 @@ public class MainViewModel : ViewModelBase
 
     private void ReadFile(object? filePath)
     {
-        var paths = filePath as string[];
-        if (paths == null) return;
+        if (filePath is not string[] paths) return;
 
         foreach (var path in paths)
         {
-	        var newPath = Paths.GetBookPath(Path.GetFileName(path));
+            var newPath = Paths.GetBookPath(Path.GetFileName(path));
 
-	        if (File.Exists(newPath))
-	        {
-                return;
-	        }
+            if (File.Exists(newPath)) return;
 
-			File.Copy(path,newPath , true);
+            File.Copy(path, newPath, true);
         }
     }
 
     private void UpdateBooks()
     {
         BookList.Clear();
+        BackUpBookList.Clear();
 
-        var bookDataAccess = IBookDataAccess.Instance;
-
-        var bookPaths = bookDataAccess.GetBookPaths();
-
-        foreach (var bookPath in bookPaths)
+        try
         {
-            var fileName = Path.GetFileName(bookPath);
-            
-            var metadataPath = Paths.GetMetadataPath(fileName);
+            var bookDataAccess = IBookDataAccess.Instance;
 
-            if (File.Exists(metadataPath))
-                try
-                {
-                    var loadedBook = bookDataAccess.LoadBook(fileName);
+            var bookPaths = bookDataAccess.GetBookPaths();
 
-                    BookList.Add(loadedBook);
-                    
-                    Debug.WriteLine($"Loaded book {fileName}");
-                    continue;
-                }
-                catch (Exception e)
-                {
-                    File.Delete(metadataPath);
-                    File.Delete(Paths.GetImagePath(fileName));
-                    Debug.WriteLine(e);
-                }
-
-            Task.Run(async () =>
+            foreach (var bookPath in bookPaths)
             {
-                try
-                {
-                    var bookQueryName = Path.GetFileNameWithoutExtension(bookPath);
-                
-                    var bookResult = await IBookApi.Instance.GetBookInformation(bookQueryName);
-                
-                    if (!bookResult.IsSuccessful)
+                var fileName = Path.GetFileName(bookPath);
+
+                var metadataPath = Paths.GetMetadataPath(fileName);
+
+                if (File.Exists(metadataPath))
+                    try
                     {
-                        Debug.WriteLine("-----");
-                        Debug.WriteLine($"API couldn't find a matching book for {bookQueryName}");
-                    
-                        if (string.IsNullOrWhiteSpace(bookResult.ErrorMessage))
+                        var loadedBook = bookDataAccess.LoadBook(fileName);
+
+                        BackUpBookList.Add(loadedBook);
+
+                        Debug.WriteLine($"Loaded book {fileName}");
+                        continue;
+                    }
+                    catch (Exception e)
+                    {
+                        File.Delete(metadataPath);
+                        File.Delete(Paths.GetImagePath(fileName));
+                        Debug.WriteLine(e);
+                    }
+
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        var bookQueryName = Path.GetFileNameWithoutExtension(bookPath);
+
+                        var bookResult = await IBookApi.Instance.GetBookInformation(bookQueryName);
+
+                        if (!bookResult.IsSuccessful)
                         {
-                            Debug.WriteLine("No error Message.");
+                            Debug.WriteLine("-----");
+                            Debug.WriteLine($"API couldn't find a matching book for {bookQueryName}");
+
+                            if (string.IsNullOrWhiteSpace(bookResult.ErrorMessage))
+                                Debug.WriteLine("No error Message.");
+
+                            Debug.Write(bookResult.ErrorMessage!);
+                            Debug.WriteLine("-----");
+                            return;
                         }
-                    
-                        Debug.Write(bookResult.ErrorMessage!);
-                        Debug.WriteLine("-----");
-                        return;
+
+                        var book = bookResult.Book!;
+
+                        Debug.WriteLine($"API found a matching book for {bookPath}: {book.Title}");
+
+                        book.FileName = Path.GetFileName(bookPath);
+
+                        if (string.IsNullOrWhiteSpace(book.CoverUrl))
+                            await bookDataAccess.DownloadBookCover(book);
+                        else
+                            Debug.WriteLine($"Couldn't find an image for {bookQueryName}");
+
+                        bookDataAccess.SaveBook(book);
+
+                        await IDispatcher.Instance.BeginInvoke(() =>
+                        {
+                            BackUpBookList.Add(book);
+                            BookList.Add(book);
+                        });
                     }
-
-                    var book = bookResult.Book!;
-                
-                    Debug.WriteLine($"API found a matching book for {bookPath}: {book.Title}");
-                
-                    book.FileName = Path.GetFileName(bookPath);
-
-                    if (string.IsNullOrWhiteSpace(book.CoverUrl))
+                    catch (Exception e)
                     {
-                        await bookDataAccess.DownloadBookCover(book);
+                        Debug.WriteLine($"Failed to load {fileName}: {e.Message}");
+                        throw;
                     }
-                    else
-                    {
-                        Debug.WriteLine($"Couldn't find an image for {bookQueryName}");
-                    }
-                
-                    bookDataAccess.SaveBook(book);
-
-                    await IDispatcher.Instance.BeginInvoke(() => { BookList.Add(book); });
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine($"Failed to load {fileName}: {e.Message}");
-                    throw;
-                }
-            });
+                });
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e.Message);
+            MessageBox.Show(e.Message, "Something went wrong", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        finally
+        {
+            BookList.AddRange(BackUpBookList);
         }
     }
 
@@ -134,13 +142,12 @@ public class MainViewModel : ViewModelBase
 
     #region Properties
 
-    public ObservableCollection<BookViewModel> BookList { get; set; } = new();
-    
-    public ObservableCollection<BookViewModel> BackUpBookList { get; set; } = new();
-    
-    
+    public ObservableCollection<BookViewModel> BookList { get; } = new();
 
-    private string bookfilter;
+    public ObservableCollection<BookViewModel> BackUpBookList { get; } = new();
+
+    private string bookfilter = string.Empty;
+
     public string BookFilter
     {
         get => bookfilter;
@@ -148,19 +155,20 @@ public class MainViewModel : ViewModelBase
         {
             if (value == string.Empty)
             {
-                BookList = BackUpBookList;
+                BookList.Clear();
+                BookList.AddRange(BackUpBookList);
                 bookfilter = value;
             }
+
             bookfilter = value;
-            var newBookList = BackUpBookList.Where(x => x.Book.Title.Contains(value) 
-                                                        || x.Book.FileName.Contains(value)
-                                                        || x.Book.Author.Contains(value)
-                                                        || x.Book.Isbn.Contains(value));
+            var newBookList = BackUpBookList.Where(x =>
+                x.Book.Title.Contains(value, StringComparison.OrdinalIgnoreCase)
+                || x.Book.FileName.Contains(value, StringComparison.OrdinalIgnoreCase)
+                || x.Book.Author.Contains(value, StringComparison.OrdinalIgnoreCase)
+                || x.Book.Isbn.Contains(value, StringComparison.OrdinalIgnoreCase));
+
             BookList.Clear();
-            foreach (var newBook in newBookList)
-            {
-                BookList.Add(newBook);
-            }
+            foreach (var newBook in newBookList) BookList.Add(newBook);
         }
     }
 

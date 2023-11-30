@@ -50,6 +50,7 @@ public class BookViewModel : ViewModelBase
     {
         IBookDataAccess.Instance.DeleteBook(Book);
         MainViewModel.Instance.BookList.Remove(this);
+        MainViewModel.Instance.BackUpBookList.Remove(this);
     }
 
     #endregion
