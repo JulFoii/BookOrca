@@ -66,8 +66,10 @@ public class MainViewModel : ViewModelBase
                     return;
                 }
 
+                book.FileName = Path.GetFileName(bookPath);
+                
                 await bookDataAccess.DownloadBookCover(book);
-
+                
                 bookDataAccess.SaveBook(book);
 
                 await IDispatcher.Instance.BeginInvoke(() => { BookList.Add(book); });
