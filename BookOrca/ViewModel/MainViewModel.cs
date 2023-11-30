@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using BookOrca.ApiAccess;
 using BookOrca.Core;
 using BookOrca.Core.Dispatch;
@@ -26,7 +27,17 @@ public class MainViewModel : ViewModelBase
         var paths = filePath as string[];
         if (paths == null) return;
 
-        foreach (var path in paths) File.Copy(path, Paths.GetBookPath(Path.GetFileName(path)), true);
+        foreach (var path in paths)
+        {
+	        var newPath = Paths.GetBookPath(Path.GetFileName(path));
+
+	        if (File.Exists(newPath))
+	        {
+                return;
+	        }
+
+			File.Copy(path,newPath , true);
+        }
     }
 
     private void UpdateBooks()
