@@ -39,19 +39,20 @@ public class MainViewModel : ViewModelBase
 
         foreach (var bookPath in bookPaths)
         {
-            var metadataPath = Paths.GetMetadataPath(bookPath);
+            var fileName = Path.GetFileName(bookPath);
+            
+            var metadataPath = Paths.GetMetadataPath(fileName);
 
             if (File.Exists(metadataPath))
                 try
                 {
-                    var loadedBook = bookDataAccess.LoadBook(bookPath);
+                    var loadedBook = bookDataAccess.LoadBook(fileName);
 
                     BookList.Add(loadedBook);
                 }
                 catch (Exception e)
                 {
-                    var fileName = Path.GetFileName(bookPath);
-                    File.Delete(Paths.GetMetadataPath(fileName));
+                    File.Delete(metadataPath);
                     File.Delete(Paths.GetImagePath(fileName));
                     Debug.WriteLine(e);
                 }
@@ -59,12 +60,14 @@ public class MainViewModel : ViewModelBase
             Task.Run(async () =>
             {
                 var book = await IBookApi.Instance.GetBookInformation(Path.GetFileNameWithoutExtension(bookPath));
-
+                
                 if (book == null)
                 {
                     Debug.WriteLine($"API couldn't find a matching book for {bookPath}");
                     return;
                 }
+                
+                Debug.WriteLine($"API found a matching book for {bookPath}: {book.Title}");
 
                 book.FileName = Path.GetFileName(bookPath);
                 
