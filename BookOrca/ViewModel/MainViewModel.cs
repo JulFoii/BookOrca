@@ -50,7 +50,7 @@ public class MainViewModel : ViewModelBase
 
                     BookList.Add(loadedBook);
                     
-                    Debug.WriteLine($"Loaded book {bookPath}");
+                    Debug.WriteLine($"Loaded book {fileName}");
                     continue;
                 }
                 catch (Exception e)
@@ -62,36 +62,51 @@ public class MainViewModel : ViewModelBase
 
             Task.Run(async () =>
             {
-                var bookQueryName = Path.GetFileNameWithoutExtension(bookPath);
-                
-                var bookResult = await IBookApi.Instance.GetBookInformation(bookQueryName);
-                
-                if (!bookResult.IsSuccessful)
+                try
                 {
-                    Debug.WriteLine("-----");
-                    Debug.WriteLine($"API couldn't find a matching book for {bookQueryName}");
-                    
-                    if (string.IsNullOrWhiteSpace(bookResult.ErrorMessage))
+                    var bookQueryName = Path.GetFileNameWithoutExtension(bookPath);
+                
+                    var bookResult = await IBookApi.Instance.GetBookInformation(bookQueryName);
+                
+                    if (!bookResult.IsSuccessful)
                     {
-                        Debug.WriteLine("No error Message.");
-                    }
+                        Debug.WriteLine("-----");
+                        Debug.WriteLine($"API couldn't find a matching book for {bookQueryName}");
                     
-                    Debug.Write(bookResult.ErrorMessage!);
-                    Debug.WriteLine("-----");
-                    return;
+                        if (string.IsNullOrWhiteSpace(bookResult.ErrorMessage))
+                        {
+                            Debug.WriteLine("No error Message.");
+                        }
+                    
+                        Debug.Write(bookResult.ErrorMessage!);
+                        Debug.WriteLine("-----");
+                        return;
+                    }
+
+                    var book = bookResult.Book!;
+                
+                    Debug.WriteLine($"API found a matching book for {bookPath}: {book.Title}");
+                
+                    book.FileName = Path.GetFileName(bookPath);
+
+                    if (string.IsNullOrWhiteSpace(book.CoverUrl))
+                    {
+                        await bookDataAccess.DownloadBookCover(book);
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Couldn't find an image for {bookQueryName}");
+                    }
+                
+                    bookDataAccess.SaveBook(book);
+
+                    await IDispatcher.Instance.BeginInvoke(() => { BookList.Add(book); });
                 }
-
-                var book = bookResult.Book!;
-                
-                Debug.WriteLine($"API found a matching book for {bookPath}: {book.Title}");
-
-                book.FileName = Path.GetFileName(bookPath);
-                
-                await bookDataAccess.DownloadBookCover(book);
-                
-                bookDataAccess.SaveBook(book);
-
-                await IDispatcher.Instance.BeginInvoke(() => { BookList.Add(book); });
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"Failed to load {fileName}: {e.Message}");
+                    throw;
+                }
             });
         }
     }

@@ -24,7 +24,7 @@ public class OpenLibraryService : IBookApi
                 string title = book.title;
                 string[] authors = book.author_name.ToObject<string[]>();
                 string isbn = (book.isbn != null && book.isbn.Count > 0) ? book.isbn[0] : "ISBN nicht verfügbar";
-                var coverId = (int)book.cover_i;
+                var coverId = book.cover_i as string;
                 var coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
 
                 return new BookApiResult(new Book

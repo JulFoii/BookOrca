@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -14,7 +16,14 @@ public class BookViewModel : ViewModelBase
     public BookViewModel(Book book)
     {
         Book = book;
-        CoverSource = new BitmapImage(Paths.GetAbsoluteUri(Paths.GetImagePath(book.FileName)));
+
+        var coverPath = Paths.GetImagePath(book.FileName);
+
+        var coverUri = File.Exists(coverPath)
+            ? Paths.GetAbsoluteUri(coverPath)
+            : new Uri("/Resources/Images/NoImage.png", UriKind.Relative);
+
+        CoverSource = new BitmapImage(coverUri);
 
         DeleteBookCommand = new RelayCommand(DeleteBook);
         OpenBookCommand = new RelayCommand(OpenBook);
