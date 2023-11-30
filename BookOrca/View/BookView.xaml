@@ -42,6 +42,11 @@
                 <TextBlock Text="{Binding Path=Book.Isbn}"
                            HorizontalAlignment="Center" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="File name: " />
+                <TextBlock Text="{Binding Path=Book.FileName}"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
         </StackPanel>
         <Grid.ContextMenu>
             <ContextMenu>

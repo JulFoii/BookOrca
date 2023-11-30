@@ -6,7 +6,8 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:viewModel="clr-namespace:BookOrca.ViewModel"
                  mc:Ignorable="d"
-                 Title="SettingsWindow"
+                 Title="Settings"
+                 TitleCharacterCasing="Normal"
                  Height="600"
                  Width="400"
                  d:DataContext="{d:DesignInstance viewModel:SettingsViewModel}">

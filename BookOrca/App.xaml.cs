@@ -36,6 +36,8 @@ public partial class App : Application
 
         Current.MainWindow.Show();
         
+        MainViewModel.Instance.UpdateBooksCommand.Execute();
+        
         base.OnStartup(e);
     }
 }
