@@ -8,7 +8,11 @@ public class MainViewModel : ViewModelBase
 {
     private static MainViewModel? instance;
 
-    public MainViewModel()
+    public static MainViewModel Instance => instance ??= new MainViewModel();
+
+    public ObservableCollection<BookViewModel> BookList { get; set; } = new();
+
+	public MainViewModel()
     {
         var book = new Book
         {
@@ -24,7 +28,5 @@ public class MainViewModel : ViewModelBase
         BookList.Add(new BookViewModel(book2));
     }
 
-    public static MainViewModel Instance => instance ??= new MainViewModel();
-
-    public ObservableCollection<BookViewModel> BookList { get; set; } = new();
+   
 }
