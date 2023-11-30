@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using BookOrca.ViewModel;
+using ControlzEx.Theming;
 using MahApps.Metro.Controls;
 
 namespace BookOrca.View;
@@ -36,6 +37,6 @@ public partial class MainWindow : MetroWindow
 		    viewModel.DropFileCommand.Execute(droppedFile);
 	    }
 
-	    MainListView.Background = new SolidColorBrush();
-    }
+	}
+
 }

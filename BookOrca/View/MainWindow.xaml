@@ -79,7 +79,6 @@
             <ListView Name="MainListView"
                       ItemsSource="{Binding Path=BookList}" 
                       ItemContainerStyle="{StaticResource ListViewContainerStyle}" 
-                      Style="{StaticResource ListViewStyle}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch"
                       AllowDrop="True"
@@ -103,8 +102,9 @@
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
             </ListView>
+
+            <Rectangle x:Name="Overlay" Fill="#80000000" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </mah:MetroWindow>
