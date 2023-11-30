@@ -76,13 +76,37 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
+            <Grid x:Name="OverlayGrid">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=MainListView, Path=IsDragging}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <!-- Hier können Sie Ihr Symbol (z.B., ein Bild) platzieren -->
+                <Button Height="50"
+                        Width="50"
+                        Margin="10"
+                        Command="{Binding UpdateBooksCommand}"
+                        IsHitTestVisible="False">
+                    <iconPacks:Material Kind="Update"/>
+                </Button>
+            </Grid>
+
             <ListView Name="MainListView"
                       ItemsSource="{Binding Path=BookList}" 
                       ItemContainerStyle="{StaticResource ListViewContainerStyle}" 
+                      Style="{StaticResource MainListViewStyle}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch"
                       AllowDrop="True"
                       Drop="UIElement_OnDropFile">
+
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
@@ -105,7 +129,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Rectangle x:Name="Overlay" Fill="#80000000" Visibility="Collapsed"/>
+
         </Grid>
     </Grid>
 </mah:MetroWindow>

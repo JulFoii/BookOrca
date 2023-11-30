@@ -56,25 +56,33 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+    <Style x:Key="MainListViewStyle" TargetType="{x:Type ListView}">
+        <!-- ... (wie oben) ... -->
+        <Setter Property="Tag" Value="Collapsed" />
         <Style.Triggers>
             <EventTrigger RoutedEvent="DragEnter">
                 <BeginStoryboard>
                     <Storyboard>
-                        <!-- Ändere die Eigenschaften des Hintergrunds -->
-                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                        To="{StaticResource MahApps.Colors.Gray}" Duration="0:0:0.3" />
-                        <!-- Füge hier weitere Animationen hinzu, um andere visuelle Effekte zu erzeugen -->
+                        <ColorAnimation
+                            Storyboard.TargetProperty="(ListView.Background).(SolidColorBrush.Color)"
+                            To="#FFD3D3D3" Duration="0:0:0.2" />
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetProperty="(ListView.Tag)">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="DragLeave">
                 <BeginStoryboard>
                     <Storyboard>
-                        <!-- Setze die Eigenschaften des Hintergrunds zurück -->
-                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                        To="{StaticResource MahApps.Colors.Gray7}" Duration="0:0:0.3" />
-                        <!-- Setze hier weitere Animationen zurück, um andere visuelle Effekte zu entfernen -->
+                        <ColorAnimation
+                            Storyboard.TargetProperty="(ListView.Background).(SolidColorBrush.Color)"
+                            To="White" Duration="0:0:0.2" />
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetProperty="(ListView.Tag)">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
