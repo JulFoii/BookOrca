@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using BookOrca.Resources;
+using NUnit.Framework;
 
 namespace BookOrca.DataAccess.Test;
 
@@ -13,6 +14,6 @@ public class BookDataAccesDownloadTest
 
         await bookDataAcces.DownloadBookCover(book);
 
-        Assert.That(File.Exists(book.CoverPath));
+        Assert.That(File.Exists(Paths.GetImagePath(book.FileName)));
     }
 }

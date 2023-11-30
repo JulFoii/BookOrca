@@ -65,7 +65,7 @@ public class BookDataAccessTest
         foreach (var property in book.GetType().GetProperties())
             Assert.That(property.GetValue(loadedBook), Is.EqualTo(property.GetValue(book)));
     }
-    
+
     [Test]
     public async Task TestDeleteBook()
     {
