@@ -20,12 +20,6 @@ public class SettingsViewModel : ViewModelBase
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         });
-
-        CancelCommand = new RelayCommand(obj =>
-        {
-            var closeableObject = (dynamic)obj!;
-            closeableObject.Close();
-        });
     }
 
     public ReadOnlyObservableCollection<string> Themes { get; } = ThemeManager.Current.BaseColors;
@@ -33,5 +27,4 @@ public class SettingsViewModel : ViewModelBase
     public ReadOnlyObservableCollection<string> Colors { get; } = ThemeManager.Current.ColorSchemes;
     public string SelectedColor { get; set; } = ConfigurationManager.AppSettings["Color"] ?? "Blue";
     public RelayCommand SaveCommand { get; }
-    public RelayCommand CancelCommand { get; }
 }

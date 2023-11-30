@@ -49,9 +49,6 @@
                         FlowDirection="RightToLeft"
                         VerticalAlignment="Bottom"
                         Margin="10">
-                <Button Content="Cancel"
-                        Margin="0  0 10 0"
-                        Command="{Binding CancelCommand}" />
                 <Button Content="Save"
                         Margin="0 0 10 0"
                         Command="{Binding Path=SaveCommand}" />
