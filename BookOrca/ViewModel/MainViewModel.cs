@@ -71,7 +71,7 @@ public class MainViewModel : ViewModelBase
                     Debug.WriteLine("-----");
                     Debug.WriteLine($"API couldn't find a matching book for {bookQueryName}");
                     
-                    if (string.IsNullOrEmpty(bookResult.ErrorMessage))
+                    if (string.IsNullOrWhiteSpace(bookResult.ErrorMessage))
                     {
                         Debug.WriteLine("No error Message.");
                     }
