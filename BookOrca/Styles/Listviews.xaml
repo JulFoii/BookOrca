@@ -57,8 +57,7 @@
     </Style>
 
     <Style x:Key="MainListViewStyle" TargetType="{x:Type ListView}">
-        <!-- ... (wie oben) ... -->
-        <Setter Property="Tag" Value="Collapsed" />
+        <!-- ... (andere Stileigenschaften) ... -->
         <Style.Triggers>
             <EventTrigger RoutedEvent="DragEnter">
                 <BeginStoryboard>
@@ -66,10 +65,9 @@
                         <ColorAnimation
                             Storyboard.TargetProperty="(ListView.Background).(SolidColorBrush.Color)"
                             To="#FFD3D3D3" Duration="0:0:0.2" />
-                        <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetProperty="(ListView.Tag)">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
-                        </ObjectAnimationUsingKeyFrames>
+                        <ColorAnimation
+                            Storyboard.TargetProperty="(ListViewItem.Background).(SolidColorBrush.Color)"
+                            To="#FFD3D3D3" Duration="0:0:0.2" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -79,10 +77,9 @@
                         <ColorAnimation
                             Storyboard.TargetProperty="(ListView.Background).(SolidColorBrush.Color)"
                             To="White" Duration="0:0:0.2" />
-                        <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetProperty="(ListView.Tag)">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
-                        </ObjectAnimationUsingKeyFrames>
+                        <ColorAnimation
+                            Storyboard.TargetProperty="(ListViewItem.Background).(SolidColorBrush.Color)"
+                            To="White" Duration="0:0:0.2" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>

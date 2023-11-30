@@ -26,7 +26,7 @@ public class MainViewModel : ViewModelBase
         var paths = filePath as string[];
         if (paths == null) return;
 
-        foreach (var path in paths) File.Copy(path, Paths.GetBookPath(Path.GetFileName(path)));
+        foreach (var path in paths) File.Copy(path, Paths.GetBookPath(Path.GetFileName(path)), true);
     }
 
     private void UpdateBooks()
