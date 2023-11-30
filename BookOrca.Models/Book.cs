@@ -9,13 +9,8 @@ public class Book
     public string CoverPath { get; set; } = string.Empty;
 
     public string CoverUrl { get; set; } = string.Empty;
-    
-    public string Path { get; set; } = string.Empty;
+
+    public string FileName { get; set; } = string.Empty;
 
     public string Isbn { get; set; } = string.Empty;
-    
-    public Book()
-    {
-        
-    }
 }

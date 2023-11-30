@@ -22,6 +22,7 @@
         <ProjectReference Include="..\BookOrca.ApiAccess\BookOrca.ApiAccess.csproj" />
         <ProjectReference Include="..\BookOrca.DataAccess\BookOrca.DataAccess.csproj" />
         <ProjectReference Include="..\BookOrca.Models\BookOrca.Models.csproj" />
+        <ProjectReference Include="..\BookOrca.Resources\BookOrca.Resources.csproj" />
     </ItemGroup>
 
     <ItemGroup>

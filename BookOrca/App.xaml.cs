@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using BookOrca.Resources;
 using BookOrca.View;
 using BookOrca.ViewModel;
 
@@ -14,10 +15,9 @@ public partial class App : Application
     {
         if (!Directory.Exists("books"))
         {
-            Directory.CreateDirectory("books");
-            Directory.CreateDirectory("books/metadata");
-            Directory.CreateDirectory("books/metadata/images");
-            Directory.CreateDirectory("books/metadata/data");
+            Directory.CreateDirectory(Paths.BookPath);
+            Directory.CreateDirectory(Paths.ImagesPath);
+            Directory.CreateDirectory(Paths.MetadataPath);
         }
         
         Current.MainWindow = new MainWindow

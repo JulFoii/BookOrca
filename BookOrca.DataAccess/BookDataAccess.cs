@@ -1,41 +1,38 @@
 ﻿using BookOrca.DataAccess.Services;
 using BookOrca.Models;
+using BookOrca.Resources;
 
 namespace BookOrca.DataAccess;
 
 public class BookDataAccess : IBookDataAccess
 {
-    private const string BooksPath = "books";
-    private const string DataPath = "books/metadata/data";
-    private const string ImagePath = "books/metadata/images";
-
     public void SaveBook(Book book)
     {
-        JsonDataAccess.SaveObj(book, $"{DataPath}/{Path.GetFileName(book.Path)}.json");
+        JsonDataAccess.SaveObj(book, Paths.GetMetadataPath(Path.GetFileName(book.FileName)));
     }
 
     public void DeleteBook(Book book)
     {
-        var fileName = Path.GetFileName(book.Path);
+        var fileName = Path.GetFileName(book.FileName);
         
-        File.Delete($"{BooksPath}/{fileName}");
-        File.Delete($"{DataPath}/{fileName}.json");
-        File.Delete($"{ImagePath}/{fileName}.png");
+        File.Delete(Paths.GetBookPath(fileName));
+        File.Delete(Paths.GetImagePath(fileName));
+        File.Delete(Paths.GetMetadataPath(fileName));
     }
 
     public IEnumerable<string> GetBookPaths()
     {
-        return Directory.GetFiles(BooksPath);
+        return Directory.GetFiles(Paths.BookPath);
     }
 
     public Book LoadBook(string fileName)
     {
-        return JsonDataAccess.LoadObj<Book>($"{DataPath}/{Path.GetFileName(fileName)}.json");
+        return JsonDataAccess.LoadObj<Book>(Paths.GetMetadataPath(fileName));
     }
 
     public IEnumerable<Book> LoadBooks()
     {
-        var files = Directory.GetFiles(DataPath);
+        var files = Directory.GetFiles(Paths.MetadataPath);
 
         foreach (var file in files)
         {
@@ -45,7 +42,7 @@ public class BookDataAccess : IBookDataAccess
 
     public async Task DownloadBookCover(Book book)
     {
-        book.CoverPath = $"{ImagePath}/{Path.GetFileName(book.Path)}.png";
+        book.CoverPath = Paths.GetImagePath(Path.GetFileName(book.FileName));
         
         await ImageDataAccess.DownloadImage(book.CoverUrl, book.CoverPath);
     }

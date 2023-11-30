@@ -29,7 +29,7 @@ public class BookViewModel : ViewModelBase
 
     private void OpenFolder(object? parameter)
     {
-        if (parameter is Book buch) Process.Start("explorer.exe", buch.Path);
+        if (parameter is Book buch) Process.Start("explorer.exe", buch.FileName);
     }
     
     #region Properties

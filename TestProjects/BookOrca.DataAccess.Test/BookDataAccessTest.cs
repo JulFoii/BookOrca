@@ -1,4 +1,5 @@
 ﻿using BookOrca.Models;
+using BookOrca.Resources;
 using NUnit.Framework;
 
 namespace BookOrca.DataAccess.Test;
@@ -8,10 +9,9 @@ public class BookDataAccessTest
     [SetUp]
     public void SetUp()
     {
-        Directory.CreateDirectory("books");
-        Directory.CreateDirectory("books/metadata");
-        Directory.CreateDirectory("books/metadata/images");
-        Directory.CreateDirectory("books/metadata/data");
+        Directory.CreateDirectory(Paths.BookPath);
+        Directory.CreateDirectory(Paths.ImagesPath);
+        Directory.CreateDirectory(Paths.MetadataPath);
     }
 
     [TearDown]
@@ -19,7 +19,7 @@ public class BookDataAccessTest
     {
         try
         {
-            Directory.Delete("books", true);
+            Directory.Delete(Paths.BookPath, true);
         }
         catch
         {
@@ -27,13 +27,13 @@ public class BookDataAccessTest
         }
     }
 
-    private Book CreateBook(string name = "test book")
+    internal static Book CreateBook(string name = "test book")
     {
         return new Book
         {
             Autor = "Test 123",
             Isbn = "ISBN-123-123-123",
-            Path = $"books/{name}.pdf",
+            FileName = $"{name}.pdf",
             Titel = "The great tester",
             CoverUrl = "https://covers.openlibrary.org/b/id/13264887-M.jpg"
         };
@@ -48,7 +48,7 @@ public class BookDataAccessTest
 
         bookDataAcces.SaveBook(book);
 
-        Assert.That(File.Exists("books/metadata/data/test book.pdf.json"));
+        Assert.That(File.Exists(Paths.GetMetadataPath("test book.pdf")));
     }
 
     [Test]
@@ -60,24 +60,12 @@ public class BookDataAccessTest
 
         bookDataAcces.SaveBook(book);
 
-        var loadedBook = bookDataAcces.LoadBook(book.Path);
+        var loadedBook = bookDataAcces.LoadBook(book.FileName);
 
         foreach (var property in book.GetType().GetProperties())
             Assert.That(property.GetValue(loadedBook), Is.EqualTo(property.GetValue(book)));
     }
-
-    [Test]
-    public async Task TestDownloadImage()
-    {
-        var bookDataAcces = new BookDataAccess();
-
-        var book = CreateBook();
-
-        await bookDataAcces.DownloadBookCover(book);
-
-        Assert.That(File.Exists(book.CoverPath));
-    }
-
+    
     [Test]
     public async Task TestDeleteBook()
     {
@@ -89,12 +77,14 @@ public class BookDataAccessTest
 
         await bookDataAcces.DownloadBookCover(book);
 
+        var fileName = "test book.pdf";
+
         bookDataAcces.DeleteBook(book);
         Assert.Multiple(() =>
         {
-            Assert.That(!File.Exists("books/test book.pdf"));
-            Assert.That(!File.Exists("books/metadata/images/test book.pdf.png"));
-            Assert.That(!File.Exists("books/metadata/data/test book.pdf.json"));
+            Assert.That(!File.Exists(Paths.GetBookPath(fileName)));
+            Assert.That(!File.Exists(Paths.GetImagePath(fileName)));
+            Assert.That(!File.Exists(Paths.GetMetadataPath(fileName)));
         });
     }
 
@@ -103,19 +93,21 @@ public class BookDataAccessTest
     {
         var bookDataAcces = new BookDataAccess();
 
-        const string path1 = "books/book1.pdf";
-        const string path2 = "books/book2.pdf";
+        const string file1 = "book1.pdf";
+        const string file2 = "book2.pdf";
 
-        File.WriteAllText(path1, "Test1");
-        File.WriteAllText(path2, "Test2");
+        File.WriteAllText(Paths.GetBookPath(file1), "Test1");
+        File.WriteAllText(Paths.GetBookPath(file2), "Test2");
 
         var bookPaths = bookDataAcces.GetBookPaths().ToList();
-        
+
         Assert.Multiple(() =>
         {
             Assert.That(bookPaths, Has.Count.EqualTo(2));
-            Assert.That(Path.GetFullPath(bookPaths[0]), Is.EqualTo(Path.GetFullPath(path1)));
-            Assert.That(Path.GetFullPath(bookPaths[1]), Is.EqualTo(Path.GetFullPath(path2)));
+            Assert.That(Path.GetFullPath(bookPaths[0]),
+                Is.EqualTo(Paths.GetAbsoluteBookPath(file1)));
+            Assert.That(Path.GetFullPath(bookPaths[1]),
+                Is.EqualTo(Paths.GetAbsoluteBookPath(file2)));
         });
     }
 
@@ -126,12 +118,12 @@ public class BookDataAccessTest
 
         var book1 = CreateBook();
         var book2 = CreateBook("Test book 2");
-        
+
         bookDataAccess.SaveBook(book1);
         bookDataAccess.SaveBook(book2);
 
         var loadedBooks = bookDataAccess.LoadBooks().ToList();
-        
+
         Assert.That(loadedBooks, Has.Count.EqualTo(2));
     }
 }
