@@ -16,7 +16,7 @@ public partial class MainWindow : MetroWindow
     public MainWindow()
     {
         InitializeComponent();
-        viewModel = new MainViewModel();
+        viewModel = (MainViewModel)DataContext;
     }
 
     private void OpenSettings(object sender, RoutedEventArgs e)
