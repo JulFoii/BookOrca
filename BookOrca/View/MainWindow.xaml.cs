@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using BookOrca.ViewModel;
@@ -40,4 +41,8 @@ public partial class MainWindow : MetroWindow
 
 	}
 
+    private void BookContextMenuDelete(object sender, RoutedEventArgs e)
+    {
+	    Debug.WriteLine(sender.GetType());
+    }
 }

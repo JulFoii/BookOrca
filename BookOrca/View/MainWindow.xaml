@@ -6,6 +6,7 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:viewModel="clr-namespace:BookOrca.ViewModel"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:view="clr-namespace:BookOrca.View"
                  mc:Ignorable="d"
                  Title="BookOrca"
                  TitleCharacterCasing="Normal"
@@ -14,16 +15,6 @@
                  Height="600"
                  Width="500"
                  d:DataContext="{d:DesignInstance viewModel:MainViewModel}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/BookStyle.xaml"/>
-                <ResourceDictionary Source="/Styles/Listviews.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -34,13 +25,13 @@
                     Orientation="Horizontal">
             <Button Height="50"
                     Width="50"
-                    Margin="10"
+                    Margin="10 0 0 0"
                     Click="OpenSettings">
                 <iconPacks:Material Kind="Cog"/>
             </Button>
             <Button Height="50"
                     Width="50"
-                    Margin="10"
+                    Margin="10 0 0 0"
                     Command="{Binding UpdateBooksCommand}">
                 <iconPacks:Material Kind="Update"/>
             </Button>
@@ -83,26 +74,13 @@
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch"
                       AllowDrop="True"
-                      Drop="UIElement_OnDropFile">
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                      Drop="UIElement_OnDropFile"
+                      BorderThickness="0"
+                      Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Black" Background="Transparent" BorderThickness="0" Margin="0 0 0 0">
-                            <Image Source="{Binding Path=CoverSource}" 
-                                   Width="100" Height="150" 
-                                   Stretch="UniformToFill" Style="{StaticResource BookImageStyle}"
-                                   Cursor="Hand">
-                                <Image.InputBindings>
-                                    <MouseBinding MouseAction="LeftClick" 
-                                                  Command="{Binding Path=OpenBookCommand}" />
-                                </Image.InputBindings>
-                            </Image>
-                        </Border>
+                        <view:BookView
+                            DataContext="{Binding}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
