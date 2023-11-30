@@ -55,4 +55,29 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="DragEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <!-- Ändere die Eigenschaften des Hintergrunds -->
+                        <ColorAnimation Storyboard.TargetProperty="(ListView.Background).(SolidColorBrush.Color)"
+                                        To="{StaticResource MahApps.Colors.Gray}" Duration="0:0:0.3" />
+                        <!-- Füge hier weitere Animationen hinzu, um andere visuelle Effekte zu erzeugen -->
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="DragLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <!-- Setze die Eigenschaften des Hintergrunds zurück -->
+                        <ColorAnimation Storyboard.TargetProperty="(ListView.Background).(SolidColorBrush.Color)"
+                                        To="White" Duration="0:0:0.3" />
+                        <!-- Setze hier weitere Animationen zurück, um andere visuelle Effekte zu entfernen -->
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

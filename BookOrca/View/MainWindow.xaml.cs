@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using BookOrca.ViewModel;
 using MahApps.Metro.Controls;
 
@@ -34,5 +35,7 @@ public partial class MainWindow : MetroWindow
 		    // Hier rufst du das Command im MainViewModel auf
 		    viewModel.DropFileCommand.Execute(droppedFile);
 	    }
-	}
+
+	    MainListView.Background = new SolidColorBrush();
+    }
 }

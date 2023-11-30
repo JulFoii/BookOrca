@@ -8,6 +8,8 @@ namespace BookOrca.ViewModel;
 
 public class MainViewModel : ViewModelBase
 {
+
+
     private static MainViewModel? instance;
 
     public static MainViewModel Instance => instance ??= new MainViewModel();
@@ -17,7 +19,9 @@ public class MainViewModel : ViewModelBase
     public ObservableCollection<BookViewModel> BookList { get; set; } = new();
     public RelayCommand UpdateBooks { get; }
 
-    public MainViewModel()
+    public string BookFilterName { get; set; } = string.Empty;
+
+	public MainViewModel()
 	{
 		DropFileCommand = new RelayCommand(ReadFile);
     }
