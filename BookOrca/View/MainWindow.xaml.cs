@@ -36,9 +36,4 @@ public partial class MainWindow : MetroWindow
             viewModel.DropFileCommand.Execute(droppedFile);
         }
     }
-
-    private void BookContextMenuDelete(object sender, RoutedEventArgs e)
-    {
-        Debug.WriteLine(sender.GetType());
-    }
 }

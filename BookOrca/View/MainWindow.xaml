@@ -33,6 +33,12 @@
                         Command="{Binding UpdateBooksCommand}">
                     <iconPacks:Material Kind="Update" />
                 </Button>
+                <Button Height="50"
+                        Width="50"
+                        Margin="10 0 0 0"
+                        Command="{Binding OpenFolderCommand}">
+                    <iconPacks:Material Kind="Folder" />
+                </Button>
             </StackPanel>
             <TextBox VerticalAlignment="Center"
                      HorizontalAlignment="Right"

@@ -20,11 +20,12 @@ public class MainViewModel : ViewModelBase
     {
         DropFileCommand = new RelayCommand(ReadFile);
         UpdateBooksCommand = new RelayCommand(UpdateBooks);
+        OpenFolderCommand = new RelayCommand(OpenFolder);
     }
 
     #region Command implementation
 
-    private void ReadFile(object? filePath)
+    private static void ReadFile(object? filePath)
     {
         if (filePath is not string[] paths) return;
 
@@ -148,6 +149,14 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    private void OpenFolder()
+    {
+        Process.Start(new ProcessStartInfo(Paths.RelativeToAbsolutePath(Paths.BookPath))
+        {
+            UseShellExecute = true
+        });
+    }
+
     #endregion
 
     #region Singleton
@@ -195,8 +204,8 @@ public class MainViewModel : ViewModelBase
     #region Commands
 
     public RelayCommand UpdateBooksCommand { get; }
-
     public RelayCommand DropFileCommand { get; set; }
+    public RelayCommand OpenFolderCommand { get; }
 
     #endregion
 }
