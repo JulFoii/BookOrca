@@ -34,7 +34,7 @@ public class BookDataAccessTest
             Autor = "Test 123",
             Isbn = "ISBN-123-123-123",
             FileName = $"{name}.pdf",
-            Titel = "The great tester",
+            Title = "The great tester",
             CoverUrl = "https://covers.openlibrary.org/b/id/13264887-M.jpg"
         };
     }
@@ -65,7 +65,7 @@ public class BookDataAccessTest
         foreach (var property in book.GetType().GetProperties())
             Assert.That(property.GetValue(loadedBook), Is.EqualTo(property.GetValue(book)));
     }
-    
+
     [Test]
     public async Task TestDeleteBook()
     {
