@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.ApiAccess.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.DataAccess.Test", "Test\BookOrca.DataAccess.Test\BookOrca.DataAccess.Test.csproj", "{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.Resources", "BookOrca.Resources\BookOrca.Resources.csproj", "{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{F68027D4-0406-4CE3-9C00-2042D8839929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,11 +49,19 @@ Global
 		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51EA1E5B-470F-4D5E-8199-F8920B460A73}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF} = {F68027D4-0406-4CE3-9C00-2042D8839929}
+		{B7823C9C-7C0D-434C-9B0A-F7C883945514} = {F68027D4-0406-4CE3-9C00-2042D8839929}
 	EndGlobalSection
 EndGlobal
