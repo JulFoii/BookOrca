@@ -16,12 +16,20 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         // Create important directories
-        if (!Directory.Exists("books"))
+
+        var foldersToMake = new[] { Paths.BookPath, Paths.MetadataPath, Paths.ImagesPath };
+
+        foreach (var folderToMake in foldersToMake)
         {
-            Directory.CreateDirectory(Paths.BookPath);
-            Directory.CreateDirectory(Paths.ImagesPath);
-            Directory.CreateDirectory(Paths.MetadataPath);
+            if (!Directory.Exists(folderToMake))
+            {
+                Directory.CreateDirectory(folderToMake);
+            }
         }
+        
+        
+        
+        
 
         // Load theme
         var theme = ConfigurationManager.AppSettings["Theme"] ?? "Light";

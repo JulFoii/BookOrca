@@ -39,7 +39,7 @@ public class BookDataAccess : IBookDataAccess
 
     public async Task DownloadBookCover(Book book)
     {
-        var coverPath = Paths.GetImagePath(Path.GetFileName(book.FileName));
+        var coverPath = Paths.GetAbsoluteImagePath(book.FileName);
 
         await ImageDataAccess.DownloadImage(book.CoverUrl, coverPath);
     }

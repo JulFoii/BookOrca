@@ -60,7 +60,6 @@
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Stretch"
                       AllowDrop="True"
-                      Drop="UIElement_OnDropFile"
                       BorderThickness="0"
                       Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
                 <ListView.ItemTemplate>

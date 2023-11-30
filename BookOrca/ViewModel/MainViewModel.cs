@@ -72,6 +72,7 @@ public class MainViewModel : ViewModelBase
             var metadataPath = Paths.GetMetadataPath(fileName);
 
             if (File.Exists(metadataPath))
+            {
                 try
                 {
                     var loadedBook = bookDataAccess.LoadBook(fileName);
@@ -87,6 +88,7 @@ public class MainViewModel : ViewModelBase
                     File.Delete(Paths.GetImagePath(fileName));
                     Debug.WriteLine(e);
                 }
+            }
 
             Task.Run(async () =>
             {
@@ -128,9 +130,24 @@ public class MainViewModel : ViewModelBase
                     book.FileName = Path.GetFileName(bookPath);
 
                     if (string.IsNullOrWhiteSpace(book.CoverUrl))
-                        await bookDataAccess.DownloadBookCover(book);
-                    else
+                    {
                         Debug.WriteLine($"Couldn't find an image for {bookQueryName}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Started download of {book.CoverUrl}");
+                        try
+                        {
+                            await bookDataAccess.DownloadBookCover(book);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e);
+                            throw;
+                        }
+                        Debug.WriteLine($"Finished download of {book.CoverUrl}");
+                    }
+                        
 
                     bookDataAccess.SaveBook(book);
 
