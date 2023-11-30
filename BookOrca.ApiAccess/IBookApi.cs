@@ -4,7 +4,7 @@ namespace BookOrca.ApiAccess;
 
 public interface IBookApi
 {
-    Task<Book?> GetBookInformation(string bookTitle);
+    Task<BookApiResult> GetBookInformation(string bookTitle);
 
     #region Singleton
 

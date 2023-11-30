@@ -5,7 +5,7 @@ namespace BookOrca.ApiAccess;
 
 public class OpenLibraryService : IBookApi
 {
-    public async Task<Book?> GetBookInformation(string bookTitle)
+    public async Task<BookApiResult> GetBookInformation(string bookTitle)
     {
         var apiUrl = $"https://openlibrary.org/search.json?title={Uri.EscapeDataString(bookTitle)}";
 
@@ -24,25 +24,23 @@ public class OpenLibraryService : IBookApi
                 string title = book.title;
                 string[] authors = book.author_name.ToObject<string[]>();
                 string isbn = (book.isbn != null && book.isbn.Count > 0) ? book.isbn[0] : "ISBN nicht verfügbar";
-                var coverId = (int)book.cover_i;
+                var coverId = book.cover_i as string;
                 var coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
 
-                return new Book
+                return new BookApiResult(new Book
                 {
                     Title = title,
                     Author = authors[0],
                     Isbn = isbn,
                     CoverUrl = coverUrl
-                };
+                });
             }
             
-            return null!;
+            return new BookApiResult(responseBody);
         }
         catch (HttpRequestException e)
         {
-            Console.WriteLine("Fehler beim Abrufen der Buchinformationen: " + e.Message);
-            
-            return null!;
+            return new BookApiResult(e.Message);
         }
     }
 }
