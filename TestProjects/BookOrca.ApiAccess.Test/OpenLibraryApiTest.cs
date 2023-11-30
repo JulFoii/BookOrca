@@ -25,10 +25,10 @@ namespace BookOrca.ApiAccess.Test
             Book bookInfo = await _openLibraryService.GetBookInformation(validBookTitle);
 
             // Assert
-            Console.WriteLine(bookInfo.Title + bookInfo.Autor + bookInfo.Isbn + bookInfo.CoverUrl);
+            Console.WriteLine(bookInfo.Title + bookInfo.Author + bookInfo.Isbn + bookInfo.CoverUrl);
             Assert.IsNotNull(bookInfo);
             Assert.IsNotNull(bookInfo.Title);
-            Assert.IsNotNull(bookInfo.Autor[0]);
+            Assert.IsNotNull(bookInfo.Author[0]);
             Assert.IsNotNull(bookInfo.Isbn);
             Assert.IsNotNull(bookInfo.CoverUrl);
         }
