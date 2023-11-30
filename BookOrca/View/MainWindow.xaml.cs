@@ -11,12 +11,12 @@ namespace BookOrca.View;
 /// </summary>
 public partial class MainWindow : MetroWindow
 {
-	private MainViewModel viewModel;
+	private readonly MainViewModel viewModel;
 
     public MainWindow()
     {
         InitializeComponent();
-        viewModel = (MainViewModel)DataContext;
+        viewModel = MainViewModel.Instance;
     }
 
     private void OpenSettings(object sender, RoutedEventArgs e)
