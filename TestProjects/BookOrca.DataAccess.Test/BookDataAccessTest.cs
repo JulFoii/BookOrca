@@ -31,7 +31,7 @@ public class BookDataAccessTest
     {
         return new Book
         {
-            Autor = "Test 123",
+            Author = "Test 123",
             Isbn = "ISBN-123-123-123",
             FileName = $"{name}.pdf",
             Title = "The great tester",
