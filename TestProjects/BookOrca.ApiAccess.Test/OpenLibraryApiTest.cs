@@ -1,36 +1,29 @@
-﻿using BookOrca.Models;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace BookOrca.ApiAccess.Test
+namespace BookOrca.ApiAccess.Test;
+
+[TestFixture]
+public class OpenLibraryServiceTests
 {
-    [TestFixture]
-    public class OpenLibraryServiceTests
+    private readonly OpenLibraryService openLibraryService = new OpenLibraryService();
+
+    [Test]
+    public async Task GetBookInformation_ValidTitle_ReturnsBookInfo()
     {
-        public OpenLibraryService _openLibraryService;
+        // Arrange
+        var validBookTitle = "Harry Potter"; // Gültiger Buchtitel
 
-        [SetUp]
-        public void Setup()
+        // Act
+        var bookInfo = await openLibraryService.GetBookInformation(validBookTitle);
+
+        // Assert
+        Assert.Multiple(() =>
         {
-            // Initialisierung des Service
-            _openLibraryService = new OpenLibraryService();
-        }
-
-        [Test]
-        public async Task GetBookInformation_ValidTitle_ReturnsBookInfo()
-        {
-            // Arrange
-            string validBookTitle = "Harry Potter"; // Gültiger Buchtitel
-
-            // Act
-            Book bookInfo = await _openLibraryService.GetBookInformation(validBookTitle);
-
-            // Assert
-            Console.WriteLine(bookInfo.Title + bookInfo.Author + bookInfo.Isbn + bookInfo.CoverUrl);
-            Assert.IsNotNull(bookInfo);
-            Assert.IsNotNull(bookInfo.Title);
-            Assert.IsNotNull(bookInfo.Author[0]);
-            Assert.IsNotNull(bookInfo.Isbn);
-            Assert.IsNotNull(bookInfo.CoverUrl);
-        }
+            Assert.That(bookInfo, Is.Not.Null);
+            Assert.That(bookInfo!.Title, Is.Not.Null);
+            Assert.That(bookInfo.Author, Is.Not.Null);
+            Assert.That(bookInfo.Isbn, Is.Not.Null);
+            Assert.That(bookInfo.CoverUrl, Is.Not.Null);
+        });
     }
 }

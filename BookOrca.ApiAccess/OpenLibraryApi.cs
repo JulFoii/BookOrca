@@ -5,9 +5,9 @@ namespace BookOrca.ApiAccess;
 
 public class OpenLibraryService : IBookApi
 {
-    public async Task<Book> GetBookInformation(string bookTitle)
+    public async Task<Book?> GetBookInformation(string bookTitle)
     {
-        string apiUrl = $"https://openlibrary.org/search.json?title={Uri.EscapeDataString(bookTitle)}";
+        var apiUrl = $"https://openlibrary.org/search.json?title={Uri.EscapeDataString(bookTitle)}";
 
         try
         {
@@ -15,17 +15,17 @@ public class OpenLibraryService : IBookApi
             var response = await client.GetAsync(apiUrl);
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
+            var responseBody = await response.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(responseBody)!;
 
             if (data != null && data!.docs != null && data!.docs.Count > 0)
             {
-                dynamic book = data!.docs[0];
+                var book = data!.docs[0];
                 string title = book.title;
                 string[] authors = book.author_name.ToObject<string[]>();
                 string isbn = (book.isbn != null && book.isbn.Count > 0) ? book.isbn[0] : "ISBN nicht verfügbar";
-                int coverId = (int)book.cover_i;
-                string coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
+                var coverId = (int)book.cover_i;
+                var coverUrl = $"https://covers.openlibrary.org/b/id/{coverId}-M.jpg";
 
                 return new Book
                 {
