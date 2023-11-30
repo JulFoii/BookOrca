@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.Models", "BookOrca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.ApiAccess", "BookOrca.ApiAccess\BookOrca.ApiAccess.csproj", "{7E30C86D-05D4-4307-AA91-CE88AA2C35D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.ApiAccess.Test", "Test\BookOrca.ApiAccess.Test\BookOrca.ApiAccess.Test.csproj", "{B7823C9C-7C0D-434C-9B0A-F7C883945514}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.DataAccess.Test", "Test\BookOrca.DataAccess.Test\BookOrca.DataAccess.Test.csproj", "{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.Resources", "BookOrca.Resources\BookOrca.Resources.csproj", "{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{F68027D4-0406-4CE3-9C00-2042D8839929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.ApiAccess.Test", "TestProjects\BookOrca.ApiAccess.Test\BookOrca.ApiAccess.Test.csproj", "{65E7E85F-7347-413D-80AA-A7D77A003A63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrca.DataAccess.Test", "TestProjects\BookOrca.DataAccess.Test\BookOrca.DataAccess.Test.csproj", "{6AC29104-4633-4F01-A86D-B41E02369A2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,18 +41,18 @@ Global
 		{7E30C86D-05D4-4307-AA91-CE88AA2C35D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E30C86D-05D4-4307-AA91-CE88AA2C35D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E30C86D-05D4-4307-AA91-CE88AA2C35D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7823C9C-7C0D-434C-9B0A-F7C883945514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7823C9C-7C0D-434C-9B0A-F7C883945514}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7823C9C-7C0D-434C-9B0A-F7C883945514}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7823C9C-7C0D-434C-9B0A-F7C883945514}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E99D8EF-70A1-449C-8AAB-DE38F45EF521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E7E85F-7347-413D-80AA-A7D77A003A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E7E85F-7347-413D-80AA-A7D77A003A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E7E85F-7347-413D-80AA-A7D77A003A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E7E85F-7347-413D-80AA-A7D77A003A63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC29104-4633-4F01-A86D-B41E02369A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC29104-4633-4F01-A86D-B41E02369A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC29104-4633-4F01-A86D-B41E02369A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC29104-4633-4F01-A86D-B41E02369A2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,7 +61,7 @@ Global
 		SolutionGuid = {51EA1E5B-470F-4D5E-8199-F8920B460A73}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{82BB71BE-5F56-4D8B-97C3-1EE131ACB0FF} = {F68027D4-0406-4CE3-9C00-2042D8839929}
-		{B7823C9C-7C0D-434C-9B0A-F7C883945514} = {F68027D4-0406-4CE3-9C00-2042D8839929}
+		{65E7E85F-7347-413D-80AA-A7D77A003A63} = {F68027D4-0406-4CE3-9C00-2042D8839929}
+		{6AC29104-4633-4F01-A86D-B41E02369A2A} = {F68027D4-0406-4CE3-9C00-2042D8839929}
 	EndGlobalSection
 EndGlobal
