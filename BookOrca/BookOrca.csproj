@@ -16,7 +16,6 @@
         <PackageReference Include="MahApps.Metro" Version="2.4.10"/>
         <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0"/>
         <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All"/>
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -27,13 +26,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="App.config">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        <Resource Include="Resources\Images\NoImage.png"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include="Resources\Images\NoImage.png"/>
+      <None Update="config.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,2 @@
+﻿Theme=Light
+Color=Blue

@@ -1,6 +1,6 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
+using BookOrca.DataAccess;
 using BookOrca.Resources;
 using BookOrca.View;
 using BookOrca.ViewModel;
@@ -11,7 +11,7 @@ namespace BookOrca;
 /// <summary>
 ///     Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App
 {
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -23,10 +23,11 @@ public partial class App : Application
             if (!Directory.Exists(folderToMake))
                 Directory.CreateDirectory(folderToMake);
 
-
         // Load theme
-        var theme = ConfigurationManager.AppSettings["Theme"] ?? "Light";
-        var color = ConfigurationManager.AppSettings["Color"] ?? "Blue";
+        var config = ConfigurationManager.LoadConfiguration();
+        
+        var theme = config["Theme"];
+        var color = config["Color"];
 
         ThemeManager.Current.ChangeTheme(this, $"{theme}.{color}");
 
