@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BookOrca.Core;
-using BookOrca.DataAccess;
 using BookOrca.Models;
 using BookOrca.Resources;
 
@@ -48,7 +47,7 @@ public class BookViewModel : ViewModelBase
 
     private void DeleteBook()
     {
-        IBookDataAccess.Instance.DeleteBook(Book);
+        Singletons.BookDataAccess.DeleteBook(Book);
         MainViewModel.Instance.BookList.Remove(this);
         MainViewModel.Instance.BackUpBookList.Remove(this);
     }

@@ -15,11 +15,11 @@ public class SettingsViewModel : ViewModelBase
             ThemeManager.Current.ChangeTheme(Application.Current, $"{SelectedTheme}.{SelectedColor}");
 
             var config = ConfigurationManager.LoadConfiguration();
-            
-            
+
+
             config["Theme"] = SelectedTheme;
             config["Color"] = SelectedColor;
-            
+
             ConfigurationManager.WriteConfiguration(config);
         });
     }

@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using BookOrca.ApiAccess;
 using BookOrca.Core;
 using BookOrca.Core.Dispatch;
-using BookOrca.DataAccess;
 using BookOrca.Models;
 using BookOrca.Resources;
 
@@ -61,7 +59,7 @@ public class MainViewModel : ViewModelBase
 
     private void LoadBooks()
     {
-        var bookDataAccess = IBookDataAccess.Instance;
+        var bookDataAccess = Singletons.BookDataAccess;
 
         var bookPaths = bookDataAccess.GetBookPaths();
 
@@ -94,7 +92,7 @@ public class MainViewModel : ViewModelBase
                 {
                     var bookQueryName = Path.GetFileNameWithoutExtension(bookPath);
 
-                    var bookResult = await IBookApi.Instance.GetBookInformation(bookQueryName);
+                    var bookResult = await Singletons.BookApi.GetBookInformation(bookQueryName);
 
                     if (!bookResult.IsSuccessful)
                     {

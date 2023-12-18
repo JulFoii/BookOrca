@@ -11,9 +11,8 @@ public static class ConfigurationManager
         var lines = File.ReadAllLines(Path);
 
         var dict = new Dictionary<string, string>();
-        
+
         foreach (var line in lines)
-        {
             try
             {
                 var values = line.Split('=', 2);
@@ -23,7 +22,6 @@ public static class ConfigurationManager
             {
                 Debug.WriteLine(e);
             }
-        }
 
         return dict;
     }
@@ -32,11 +30,8 @@ public static class ConfigurationManager
     {
         var lines = new List<string>();
 
-        foreach (var keyValuePair in dict)
-        {
-            lines.Add($"{keyValuePair.Key}={keyValuePair.Value}");
-        }
-        
+        foreach (var keyValuePair in dict) lines.Add($"{keyValuePair.Key}={keyValuePair.Value}");
+
         File.WriteAllLines(Path, lines);
     }
 }
