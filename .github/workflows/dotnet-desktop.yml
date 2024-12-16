@@ -30,7 +30,7 @@ jobs:
       run: msbuild BookOrca.sln /p:Configuration=Release
 
     - name: Run unit tests
-      run: dotnet test BookOrca.TestProjects/BookOrca.DataAccess.Test/BookOrca.DataAccess.Test.csproj
+      run: dotnet test TestProjects/BookOrca.DataAccess.Test/BookOrca.DataAccess.Test.csproj
 
     - name: Package the application
       run: msbuild BookOrca/BookOrca/BookOrca.csproj /p:Configuration=Release
