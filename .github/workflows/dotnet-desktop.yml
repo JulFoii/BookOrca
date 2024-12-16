@@ -33,12 +33,12 @@ jobs:
       run: dotnet test TestProjects/BookOrca.DataAccess.Test/BookOrca.DataAccess.Test.csproj
 
     - name: Package the application
-      run: msbuild BookOrca/BookOrca/BookOrca.csproj /p:Configuration=Release
+      run: msbuild BookOrca/BookOrca.csproj /p:Configuration=Release
 
     # Create a GitHub Release and upload the MSIX package
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        files: BookOrca/BookOrca/AppPackages/*.msix
+        files: BookOrca/AppPackages/*.msix
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
