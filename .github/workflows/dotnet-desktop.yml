@@ -2,13 +2,11 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    tags:
+      - "*"
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
@@ -35,10 +33,11 @@ jobs:
     - name: Package the application
       run: msbuild BookOrca/BookOrca.csproj /p:Configuration=Release
 
-    # Create a GitHub Release and upload the MSIX package
+    # Erstelle GitHub-Release und lade das MSIX-Paket hoch
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ github.ref_name }}
         files: BookOrca/AppPackages/*.msix
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
