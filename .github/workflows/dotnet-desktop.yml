@@ -2,11 +2,13 @@ name: .NET Core Desktop
 
 on:
   push:
-    tags:
-      - "*"
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
+
     runs-on: windows-latest
 
     steps:
@@ -29,15 +31,3 @@ jobs:
 
     - name: Run unit tests
       run: dotnet test TestProjects/BookOrca.DataAccess.Test/BookOrca.DataAccess.Test.csproj
-
-    - name: Package the application
-      run: msbuild BookOrca/BookOrca.csproj /p:Configuration=Release
-
-    # Erstelle GitHub-Release und lade das MSIX-Paket hoch
-    - name: Create GitHub Release
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: ${{ github.ref_name }}
-        files: BookOrca/AppPackages/*.msix
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
