@@ -13,11 +13,13 @@ updates:
     directory: "/BookOrca.DataAccess"
     schedule:
       interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/BookOrca.Models"
+  - package-ecosystem: "dotnet"
+    directory: "/BookOrca.ApiAccess"
     schedule:
       interval: "daily"
-  - package-ecosystem: "nuget" 
-    directory: "/BookOrca.Resources"
+ - package-ecosystem: "dotnet-sdk"
+    directory: "/BookOrca"
     schedule:
       interval: "daily"      
+      
+      
