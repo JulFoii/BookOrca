@@ -13,10 +13,6 @@ updates:
     directory: "/BookOrca.DataAccess"
     schedule:
       interval: "daily"
-  - package-ecosystem: "dotnet"
-    directory: "/BookOrca.ApiAccess"
-    schedule:
-      interval: "daily"
  - package-ecosystem: "dotnet-sdk"
     directory: "/BookOrca"
     schedule:
