@@ -12,10 +12,6 @@ updates:
   - package-ecosystem: "nuget" 
     directory: "/BookOrca.DataAccess"
     schedule:
-      interval: "daily"
- - package-ecosystem: "dotnet-sdk"
-    directory: "/BookOrca"
-    schedule:
-      interval: "daily"      
+      interval: "daily"   
       
       
